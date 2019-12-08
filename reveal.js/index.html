@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Regular expressions</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section id="section1">
+					<h1>Regular Expressions</h1>
+					<p><b>Author:</b> Liudmila Litvin</p>
+				</section>
+				<section>
+					<p>Regular expressions originated in 1951 by mathematician <b>Stephen Cole Kleene</b></p>
+				</section>
+				<section id="section2">
+					<h2>Creating a regular expression</h2>
+					<p>The “long” syntax:</p>
+					<img src="../reveal.js/assets/img/long.png" alt="longSyntax">
+                    <p>The “short” one, using slashes "/":</p>
+					<img src="../reveal.js/assets/img/short.png" alt="shortSyntax">
+				</section>
+				<section id="section3">
+					<h3>Regular expression flags</h3>
+					<table>
+						<tr><td><b>Flag</b></td><td><b>Description</b></td></tr>
+						<tr><td>g</td><td>Global search</td></tr>
+						<tr><td>i</td><td>Case-insensitive search</td></tr>
+						<tr><td>m</td><td>Multi-line search</td></tr>
+						<tr><td>s</td><td>Enables “dotall” mode, that allows a dot . to match newline character</td></tr>
+						<tr><td>u</td><td>"unicode"; treat a pattern as a sequence of unicode code points</td></tr>
+						<tr><td>y</td><td>Perform a "sticky" search that matches starting at the current position in the target string</td></tr>
+					</table>
+					<p>Note! Flags are an integral part of a regular expression. They cannot be added or removed later.</p>
+				</section>
+				<section id="section4">
+					<p><b>For example:</b></p>
+					<img src="../reveal.js/assets/img/flag_examp.png" alt="example">
+					<p>You could replace the line:</p>
+					<img src="../reveal.js/assets/img/flag_examp1.png" alt="changeExample">
+					<p>with:</p>
+					<img src="../reveal.js/assets/img/flag_examp2.png" alt="newExample">
+					<p>and get the same result.</p>
+				</section>
+				<section id="section5">
+					<h5>special characters</h5>
+					<table>
+						<tr><td><b>Character</b></td><td><b>Meaning</b></td></tr>
+						<tr><td>\</td><td>A backslash indicates that the next character is special and is not to be interpreted literally. 
+							For example, a 'b' without a preceding '\' generally matches lowercase 'b's wherever they occur — the character will be interpreted literally. 
+							</td></tr>
+						<tr><td>$</td><td>Matches end of input. If the multiline flag is set to true, also matches immediately before a line break character.
+							For example, /t$/ does not match the 't' in "eater", but does match it in "eat".
+							</td></tr>
+						<tr><td>+</td><td>Matches the preceding expression 1 or more times. Equivalent to {1,}.
+							For example, /a+/ matches the 'a' in "candy" and all the a's in "caaaaaaandy", but nothing in "cndy".
+							</td></tr>
+						<tr><td>\d</td><td>Matches a digit character. Equivalent to [0-9].
+							For example, /\d/ or /[0-9]/ matches '2' in "B2 is the suite number."
+							</td></tr>
+						<tr><td>\D</td><td>Matches a non-digit character. Equivalent to [^0-9].
+								For example, /\D/ or /[^0-9]/ matches 'B' in "B2 is the suite number."
+							</td></tr>
+						<tr><td>\w</td><td>Matches any alphanumeric character including the underscore. Equivalent to [A-Za-z0-9_].
+								For example, /\w/ matches 'a' in "apple," '5' in "$5.28," and '3' in "3D."
+						</td></tr>
+							
+					</table>
+					<p><br>Completed list and description of the special characters by the link: &nbsp
+					<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions" target="_blank">
+					  https://developer.mozilla.org/en-US/docs/Web/JavaScript/ Guide/Regular_Expressions</a>
+					</p> 
+				</section>
+				<section>
+						<p>For example: <b>let re = /ab*c/;</b></p>  
+						<p>In the string "cbbabbbbcdebc," the pattern matches the substring 'abbbbc'</p> <br>
+						<p>If you need to use any of the special characters literally, you must escape it by putting a backslash in front of it</p>
+						<p>For example: <b>let re = /a\*b/;</b></p>  
+						<p>The backslash "escapes" the '*', making it literal instead of special.</p>
+					</section>
+				<section id="section6">
+					<h4>Methods that use regular expressions</h4>
+					<table>
+							<tr><td><b>Method</b></td><td><b>Description</b></td></tr>
+							<tr><td>exec</td><td>A RegExp method that executes a search for a match in a string. 
+								It returns an array of information or null on a mismatch.</td></tr>
+							<tr><td>test</td><td>A RegExp method that tests for a match in a string. It returns true or false.</td></tr>
+							<tr><td>match</td><td>A String method that returns an array containing all of the matches,
+								 including capturing groups, or null if no match is found.
+								</td></tr>
+							<tr><td>matchAll</td><td>A String method that returns an iterator containing 
+								all of the matches, including capturing groups.
+								</td></tr>
+							<tr><td>search</td><td>A String method that tests for a match in a string.
+								 It returns the index of the match, or -1 if the search fails.
+								</td></tr>
+							<tr><td>replace</td><td>A String method that executes a search for a match in a string, 
+								and replaces the matched substring with a replacement substring.
+							</td></tr>
+						    <tr><td>split</td><td>A String method that uses a regular expression or a 
+								fixed string to break a string into an array of substrings.
+							</td></tr>		
+						</table>
+				</section>
+				<section id="section7">
+					<h2>Thank's for watching!</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

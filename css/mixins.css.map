@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../reveal.js/css/theme/template/mixins.scss"
+    ],
+    "names": [],
+    "file": "mixins.css"
+}
